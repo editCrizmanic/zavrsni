@@ -1,5 +1,7 @@
 import './App.css';
 import Messages from './components/Messages';
+import Input from './components/Input';
+import { useState } from 'react';
 
 
 const randomName = () => {
@@ -15,32 +17,41 @@ const randomColor = () => {
 }
 
 
-const state = {
-  messages: [
-    {
-      text: "test test test",
-      member: {
-        color: "black",
-        username: "pero"
-      }
-    }
-  ],
-  member: {
-    username: randomName(),
-    color: randomColor()
-  }
-}
-
-
 function App() {
+  const [state, setState] = useState({
+    messages: [
+      {
+        text: "test test test",
+        member: {
+          color: "black",
+          username: "pero"
+        }
+      }
+    ],
+    member: {
+      username: randomName(),
+      color: randomColor()
+    }
+  });
+
+  const onSendMessage = (message) => {
+    const newMessage = {
+      text: message,
+      member: state.member
+    };
+    const newMessages = [...state.messages, newMessage];
+    setState({
+      ...state,
+      messages: newMessages
+    });
+  };
+
   return (
     <div className="App">
-      <Messages
-        messages={state.messages}
-        currentMember={state.member}
-      />
+      <Messages messages={state.messages} currentMember={state.member} />
+      <Input onSendMessage={onSendMessage} />
     </div>
   );
 }
 
-export default App;
+export default App
