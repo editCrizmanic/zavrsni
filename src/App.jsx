@@ -1,50 +1,53 @@
 import './App.css';
+import { useState } from 'react';
+import { randomName, randomColor } from './utils/UserInfo/randomNameColor';
+import { droneInit } from "./utils/DroneStuff/droneInit"
 import Messages from './components/Messages';
 import Input from './components/Input';
-import { useState } from 'react';
 
 
-const randomName = () => {
-  const firstParts = ["autumn", "hidden", "bitter", "misty", "silent", "empty", "dry", "dark", "summer", "icy", "delicate", "quiet", "white", "cool", "spring", "winter", "patient", "twilight", "dawn", "crimson", "wispy", "weathered", "blue", "billowing", "broken", "cold", "damp", "falling", "frosty", "green", "long", "late", "lingering", "bold", "little", "morning", "muddy", "old", "red", "rough", "still", "small", "sparkling", "throbbing", "shy", "wandering", "withered", "wild", "black", "young", "holy", "solitary", "fragrant", "aged", "snowy", "proud", "floral", "restless", "divine", "polished", "ancient", "purple", "lively", "nameless"];
-  const secondParts = ["waterfall", "river", "breeze", "moon", "rain", "wind", "sea", "morning", "snow", "lake", "sunset", "pine", "shadow", "leaf", "dawn", "glitter", "forest", "hill", "cloud", "meadow", "sun", "glade", "bird", "brook", "butterfly", "bush", "dew", "dust", "field", "fire", "flower", "firefly", "feather", "grass", "haze", "mountain", "night", "pond", "darkness", "snowflake", "silence", "sound", "sky", "shape", "surf", "thunder", "violet", "water", "wildflower", "wave", "water", "resonance", "sun", "wood", "dream", "cherry", "tree", "fog", "frost", "voice", "paper", "frog", "smoke", "star"];
-  const firstPart = firstParts[Math.floor(Math.random() * firstParts.length)];
-  const secondPart = secondParts[Math.floor(Math.random() * secondParts.length)];
-  return firstPart + secondPart;
-}
-
-const randomColor = () => {
-  return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
-}
 
 
+// ------ the fun part ----------------------------------------------------------------------------------------------------
 function App() {
+
   const [state, setState] = useState({
-    messages: [
-      {
-        text: "test test test",
-        member: {
-          color: "black",
-          username: "pero"
-        }
-      }
-    ],
+    messages: [],
     member: {
-      username: randomName(),
-      color: randomColor()
+     username: randomName(),
+     color: randomColor()
+   }
+  });
+
+
+  droneInit.on("open", error => {
+    if (error) {
+      return console.error(error)
     }
+    setState(prevState => {
+      const member = { ...prevState.member };
+      member.id = droneInit.clientId;
+      return { ...prevState, member };
+    });
+  });
+
+  const room = droneInit.subscribe("observable-general")
+  
+  room.on("data", (data, member) => {
+    setState(prevState => {
+      const messages = [...prevState.messages];
+      messages.push({ member, text: data });
+      return { ...prevState, messages };
+    });
   });
 
   const onSendMessage = (message) => {
-    const newMessage = {
-      text: message,
-      member: state.member
-    };
-    const newMessages = [...state.messages, newMessage];
-    setState({
-      ...state,
-      messages: newMessages
-    });
+    droneInit.publish({
+      room:"observable-general",
+      message
+    })
   };
+  
 
   return (
     <div className="App">
@@ -54,4 +57,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
