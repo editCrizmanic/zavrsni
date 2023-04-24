@@ -16,7 +16,7 @@ function App() {
     }
   });
 
-  const room = droneInit.subscribe("observable-general")
+  const room = droneInit.subscribe("observable-books")
 
   room.on("data", (data, member) => {
     setState(prevState => {
@@ -28,7 +28,7 @@ function App() {
 
   const onSendMessage = (message) => {
     droneInit.publish({
-      room: "observable-general",
+      room: "observable-books",
       message
     })
   };
