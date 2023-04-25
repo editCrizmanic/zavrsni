@@ -1,29 +1,44 @@
 import { useState } from "react";
-import { randomName, randomColor, id } from "../UserInfo/randomInfo";
-import { droneInit } from "../DroneStuff/droneInit";
+import { randomColor, id } from "../UserInfo/avatar";
 
 export const useDrone = () => {
   const [state, setState] = useState({
     messages: [],
-    member: {
-      username: randomName(),
-      color: randomColor(),
-      id,
-    },
+    member: null,
+    drone: null,
   });
 
-  const room = droneInit.subscribe("observable-books");
+  const onLogIn = (user) => {
+    const member = {
+      username: user,
+      color: randomColor(),
+      id,
+    };
+    const drone = new window.Scaledrone(process.env.REACT_APP_CHANNEL1_KEY, {
+      data: member,
+    });
 
-  room.on("data", (data, member) => {
+    setState((prevState) => {
+      return { ...prevState, drone, member };
+    });
+  };
+
+  const room = state.drone?.subscribe("observable-books");
+
+  room?.on("message", (data) => {
+    console.log(data);
     setState((prevState) => {
       const messages = [...prevState.messages];
-      messages.push({ member, text: data });
+      messages.push({
+        member: data.member.clientData,
+        text: data.data,
+      });
       return { ...prevState, messages };
     });
   });
 
   const onSendMessage = (message) => {
-    droneInit.publish({
+    state.drone?.publish({
       room: "observable-books",
       message,
     });
@@ -32,5 +47,6 @@ export const useDrone = () => {
   return {
     state,
     onSendMessage,
+    onLogIn,
   };
 };

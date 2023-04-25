@@ -2,8 +2,11 @@ import React from "react";
 
 const renderMessage = (id, currentMember, message) => {
   const { member, text } = message;
-  const messageFromMe = member.username === currentMember.username;
+  console.log({member});
+  console.log({currentMember});
+  const messageFromMe = member.id === currentMember.id;
   const className = messageFromMe ? "Messages-message currentUser" : "Messages-message";
+// CSS na liniji 8 za pozicioniranje
 
   return (
     <li key={id} className={className}>
