@@ -1,3 +1,21 @@
+This is a chat application created with React and Scaledrone.
+Plan for it is to be an app related to books and reading.
+Currently, it has some basic functionalities along with log-in. There is no design, so the whole thing, for now, is somewhat ugly 
+
+Some of the functionalities to be implemented:
+- erasing messages
+- choosing avatars
+- choosing desired rooms on login
+- display of active members
+...
+
+
+
+...
+
+Default info about Create React App
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
