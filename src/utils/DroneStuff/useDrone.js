@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { randomColor, id } from "../UserInfo/avatar";
+import { addMessage, setUser } from "../../store/drone";
 
 export const useDrone = () => {
   const [state, setState] = useState({
-    messages: [],
-    member: null,
     drone: null,
   });
 
@@ -18,8 +17,10 @@ export const useDrone = () => {
       data: member,
     });
 
+    setUser(member);
+
     setState((prevState) => {
-      return { ...prevState, drone, member };
+      return { ...prevState, drone };
     });
   };
 
@@ -27,14 +28,11 @@ export const useDrone = () => {
 
   room?.on("message", (data) => {
     console.log(data);
-    setState((prevState) => {
-      const messages = [...prevState.messages];
-      messages.push({
-        member: data.member.clientData,
-        text: data.data,
-      });
-      return { ...prevState, messages };
-    });
+    const message = {
+      member: data.member.clientData,
+      text: data.data,
+    };
+    addMessage(message);
   });
 
   const onSendMessage = (message) => {
