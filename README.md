@@ -1,4 +1,4 @@
-This is a chat application created with React and Scaledrone.
+This is a chat application created with React and Scaledrone. Along with React router and Valtio for state management.
 Plan for it is to be an app related to books and reading.
 Currently, it has some basic functionalities along with log-in. There is no design, so the whole thing, for now, is somewhat ugly 
 
