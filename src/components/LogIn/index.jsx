@@ -3,14 +3,21 @@ import { useState } from 'react'
 
 export const LogIn = ({onLogIn}) => {
     const [username, setUserName] = useState("")
+    const [chat, setChat] = useState("")
 
-    const onChange = (event) => {
+    const onChangeText = (event) => {
         setUserName(event.target.value)
+        console.log(event.target.value);
     }
+
+    const onChangeSelect = (event) => {
+      setChat(event.target.value)
+      console.log(event.target.value);
+  }
 
     const onSubmit = (event) => {
         event.preventDefault()
-        onLogIn(username)
+        onLogIn(username, chat)
         setUserName("")
     }
 
@@ -18,12 +25,21 @@ export const LogIn = ({onLogIn}) => {
     <div>
     <form onSubmit={onSubmit} >
       <input
-        onChange={onChange}
+        onChange={onChangeText}
         value={username}
         type="text"
         placeholder="Type here and press ENTER"
         autoFocus={true}
       />
+      <select onChange={onChangeSelect} name="rooms" id="rooms" value={chat}>
+        <option value="general">General</option>
+        <option value="fantasy">Fantasy</option>
+        <option value="poetry">Poetry</option>
+        <option value="sci-fi">Sci-Fi</option>
+        <option value="crime">Crime</option>
+        <option value="travel">Travel</option>
+        <option value="how-to">How-to</option>
+      </select>
       <button>Log In</button>
     </form>
   </div>
