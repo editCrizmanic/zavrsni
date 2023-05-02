@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { randomColor, id } from "../UserInfo/avatar";
-import { addMessage, setUser } from "../../store/drone";
+import { addMessage, setRoom, setUser, droneStore } from "../../store/drone";
+import { useSnapshot } from "valtio";
 
 export const useDrone = () => {
+  const { room: currentRoom } = useSnapshot(droneStore);
+
   const [state, setState] = useState({
     drone: null,
   });
 
-  const onLogIn = (user) => {
+  const onLogIn = (user, chat) => {
     const member = {
       username: user,
       color: randomColor(),
@@ -19,25 +22,36 @@ export const useDrone = () => {
 
     setUser(member);
 
+    const room = drone.subscribe(`observable-${chat}`);
+
+    console.log("room instance", room);
+
+    setRoom({
+      instance: room,
+      name: chat,
+    });
+    setUpRoomListeners(room);
+
     setState((prevState) => {
       return { ...prevState, drone };
     });
   };
 
-  const room = state.drone?.subscribe("observable-books");
-
-  room?.on("message", (data) => {
-    console.log(data);
-    const message = {
-      member: data.member.clientData,
-      text: data.data,
-    };
-    addMessage(message);
-  });
+  const setUpRoomListeners = (room) => {
+    room?.on("message", (data) => {
+      console.log(data);
+      const message = {
+        member: data.member.clientData,
+        text: data.data,
+      };
+      addMessage(message);
+    });
+  };
 
   const onSendMessage = (message) => {
+    console.log(message, currentRoom.name);
     state.drone?.publish({
-      room: "observable-books",
+      room: `observable-${currentRoom.name}`,
       message,
     });
   };

@@ -12,8 +12,8 @@ export const setUser = (user) => {
   droneStore.user = user;
 };
 
-export const setRoom = (instance, name) => {
-  droneStore.room = { instance, name };
+export const setRoom = (room) => {
+  droneStore.room = room;
 };
 
 export const addMessage = (message) => {

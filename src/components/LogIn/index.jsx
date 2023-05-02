@@ -18,6 +18,7 @@ export const LogIn = ({onLogIn}) => {
     const onSubmit = (event) => {
         event.preventDefault()
         onLogIn(username, chat)
+        console.log(username, chat);
         setUserName("")
     }
 
@@ -31,7 +32,7 @@ export const LogIn = ({onLogIn}) => {
         placeholder="Type here and press ENTER"
         autoFocus={true}
       />
-      <select onChange={onChangeSelect} name="rooms" id="rooms" value={chat}>
+      <select onChange={onChangeSelect} value={chat} name="rooms" id="rooms">
         <option value="general">General</option>
         <option value="fantasy">Fantasy</option>
         <option value="poetry">Poetry</option>
