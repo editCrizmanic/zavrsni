@@ -56,6 +56,14 @@ export const useDrone = () => {
       addMembers(members);
       console.log("list of memebers: ", members);
     });
+    room.on("member_join", (member) => {
+      addMembers([member]);
+      const notificationJoin = {
+        member: { username: "Chatbot Pero" },
+        text: `${member.clientData.username} joined the chat`,
+      };
+      addMessage(notificationJoin);
+    });
   };
 
   const onSendMessage = (message) => {
