@@ -10,16 +10,18 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 
 function App() {
   const { onSendMessage, onLogIn } = useDrone();
-  const { messages, user } = useSnapshot(droneStore);
+  const { messages, user, room } = useSnapshot(droneStore);
+  console.log(room);
 
   return (
     <Router>
       <div className="App">
         <Routes>
           <Route path="/" element={<ButtonLogIn/>}/>
-          <Route path="/login" element={!user?.username ? <LogIn onLogIn={onLogIn} /> : <Navigate to="/chat" />} />
-          <Route path="/chat" element={user?.username ? (
+          <Route path="/login" element={(!user?.username && !room?.name)? <LogIn onLogIn={onLogIn} /> : <Navigate to="/chat" />} />
+          <Route path="/chat" element={(user?.username && room?.name) ? (
               <>
+              <h1>{room.name}</h1>
                 <Messages messages={messages} currentMember={user} />
                 <Input onSendMessage={onSendMessage} />
               </>
