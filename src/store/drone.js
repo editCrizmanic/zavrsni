@@ -21,6 +21,6 @@ export const addMessage = (message) => {
   droneStore.messages = [...droneStore.messages, message];
 };
 
-export const addMembers = (member) => {
-  droneStore.members = [...droneStore.members, member];
+export const addMembers = (newMembers) => {
+  droneStore.members = [...droneStore.members, ...newMembers];
 };

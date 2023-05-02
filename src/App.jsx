@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 
 function App() {
   const { onSendMessage, onLogIn } = useDrone();
-  const { messages, user, room } = useSnapshot(droneStore);
+  const { messages, user, room, members } = useSnapshot(droneStore);
   console.log(room);
 
   return (
@@ -22,6 +22,17 @@ function App() {
           <Route path="/chat" element={(user?.username && room?.name) ? (
               <>
               <h1>{room.name}</h1>
+              {room?.name && (
+                  <div>
+                    <p>List of active members:</p>
+                    <ul>
+                      {members.map((member) => (
+                        <li key={member.id}>{member.clientData.username}</li>
+                      ))}
+                    </ul>
+
+                  </div>
+                )}
                 <Messages messages={messages} currentMember={user} />
                 <Input onSendMessage={onSendMessage} />
               </>
