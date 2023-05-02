@@ -4,6 +4,7 @@ export const INITIAL_STATE = {
   user: null,
   room: null,
   messages: [],
+  members: [],
 };
 
 export const droneStore = proxy(INITIAL_STATE);
@@ -18,4 +19,8 @@ export const setRoom = (room) => {
 
 export const addMessage = (message) => {
   droneStore.messages = [...droneStore.messages, message];
+};
+
+export const addMembers = (member) => {
+  droneStore.members = [...droneStore.members, member];
 };

@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { randomColor, id } from "../UserInfo/avatar";
-import { addMessage, setRoom, setUser, droneStore } from "../../store/drone";
+import {
+  addMessage,
+  setRoom,
+  setUser,
+  droneStore,
+  addMembers,
+} from "../../store/drone";
 import { useSnapshot } from "valtio";
 
 export const useDrone = () => {
@@ -45,6 +51,10 @@ export const useDrone = () => {
         text: data.data,
       };
       addMessage(message);
+    });
+    room?.on("members", (members) => {
+      addMembers(members);
+      console.log("list of memebers: ", members);
     });
   };
 
