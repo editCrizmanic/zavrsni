@@ -1,7 +1,7 @@
 import './App.css';
 import { useState } from 'react';
-import { LogIn } from './components/LogIn';
-import ButtonLogIn from './components/LogIn/ButtonLogIn';
+import { LogIn } from './components/LogInOut/LogIn';
+import { ButtonLogIn } from './components/LogInOut/ButtonLogInOut';
 import Messages from './components/Messages';
 import Input from './components/Input';
 import { useDrone } from './utils/DroneStuff/useDrone';
@@ -30,6 +30,7 @@ function App() {
                       {members.map((member) => (
                         <li key={member.id}>{member.clientData.username}</li>
                       ))}
+
                     </ul>
 
                   </div>

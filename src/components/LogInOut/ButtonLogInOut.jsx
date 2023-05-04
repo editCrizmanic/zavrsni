@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 
-const ButtonLogIn = () => {
+export const ButtonLogIn = () => {
   return (
     <div>
         <h1>Oi</h1>
@@ -11,4 +11,10 @@ const ButtonLogIn = () => {
   )
 }
 
-export default ButtonLogIn
+export const ButtonLogOut = () => {
+  return (
+    <div>
+        <button><Link to="/">LogOut</Link></button>
+    </div>
+  )
+}

@@ -50,7 +50,7 @@ const Input = ({ onSendMessage }) => {
             onEmojiClick={onSelectEmoji}
             />
         )}
-        <button>Send</button>
+        <button disabled={!text.trim()}>Send</button>
       </form>
     </div>
   );
