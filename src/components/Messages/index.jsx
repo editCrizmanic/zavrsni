@@ -1,4 +1,5 @@
 import React from "react";
+import { ButtonLogOut } from "../LogInOut/ButtonLogInOut";
 
 const renderMessage = (id, currentMember, message) => {
   const { member, text } = message;
@@ -22,9 +23,12 @@ const renderMessage = (id, currentMember, message) => {
 const Messages = (props) => {
   const { messages, currentMember } = props;
   return (
-    <ul className="Messages-list">
-      {messages.map((m, index) => renderMessage(index, currentMember, m))}
-    </ul>
+    <>
+      <ButtonLogOut/>
+      <ul className="Messages-list">
+        {messages.map((m, index) => renderMessage(index, currentMember, m))}
+      </ul>
+    </>
   );
 };
 
