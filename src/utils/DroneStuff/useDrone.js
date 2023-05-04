@@ -6,12 +6,12 @@ import {
   setUser,
   droneStore,
   addMembers,
+  exitMembers,
 } from "../../store/drone";
 import { useSnapshot } from "valtio";
 
 export const useDrone = () => {
   const { room: currentRoom } = useSnapshot(droneStore);
-
   const [state, setState] = useState({
     drone: null,
   });
@@ -25,19 +25,14 @@ export const useDrone = () => {
     const drone = new window.Scaledrone(process.env.REACT_APP_CHANNEL1_KEY, {
       data: member,
     });
-
     setUser(member);
-
     const room = drone.subscribe(`observable-${chat}`);
-
     console.log("room instance", room);
-
     setRoom({
       instance: room,
       name: chat,
     });
     setUpRoomListeners(room);
-
     setState((prevState) => {
       return { ...prevState, drone };
     });
@@ -60,10 +55,26 @@ export const useDrone = () => {
       addMembers([member]);
       const notificationJoin = {
         member: { username: "Chatbot Pero" },
-        text: `${member.clientData.username} joined the chat`,
+        text: `${member.clientData.username} joined the chat. 😀`,
       };
       addMessage(notificationJoin);
     });
+    room.on("member_leave", function (member) {
+      exitMembers(id);
+      const notificationLeave = {
+        member: { username: "Chatbot Pero" },
+        text: `${member.clientData.username} left the chat. 👋`,
+      };
+      addMessage(notificationLeave);
+    });
+  };
+
+  const onLogOut = (chat, room, drone) => {
+    drone?.on("close", (event) => {
+      room.unsubscribe(`observable-${chat}`);
+      drone.close(`observable-${chat}`);
+    });
+    // console.log();
   };
 
   const onSendMessage = (message) => {
@@ -78,5 +89,6 @@ export const useDrone = () => {
     state,
     onSendMessage,
     onLogIn,
+    onLogOut,
   };
 };

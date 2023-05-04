@@ -11,10 +11,10 @@ export const ButtonLogIn = () => {
   )
 }
 
-export const ButtonLogOut = () => {
-  return (
-    <div>
-        <button><Link to="/">LogOut</Link></button>
-    </div>
-  )
-}
+// export const ButtonLogOut = () => {
+//   return (
+//     <div>
+//         <button><Link to="/">LogOut</Link></button>
+//     </div>
+//   )
+// }
