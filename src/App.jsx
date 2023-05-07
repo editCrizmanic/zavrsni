@@ -7,10 +7,11 @@ import Input from './components/Input';
 import { useDrone } from './utils/DroneStuff/useDrone';
 import { useSnapshot } from 'valtio';
 import { droneStore } from './store/drone';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function App() {
-  const { onSendMessage, onLogIn } = useDrone();
+  const { onSendMessage, onLogIn, onLogOut} = useDrone();
   const { messages, user, room, members } = useSnapshot(droneStore);
   console.log(room);
 
@@ -28,22 +29,20 @@ function App() {
                     <p>List of active members:</p>
                     <ul>
                       {members.map((member) => (
-                        <li key={member.id}>{member.clientData.username}</li>
+                        <li key={member.id}>{member.username}</li>
                       ))}
-
                     </ul>
-
                   </div>
                 )}
+                <button onClick={() => {onLogOut(room.name, room.instance)}}>Log Out</button>
                 <Messages messages={messages} currentMember={user} />
                 <Input onSendMessage={onSendMessage} />
               </>
             ) : (
-              <Navigate to="/" />
-          )} />
+              <Navigate to="/" />)} />
         </Routes>
       </div>
-    </Router>
+    </Router> 
   );
 }
 

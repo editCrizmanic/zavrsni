@@ -6,12 +6,13 @@ import {
   setUser,
   droneStore,
   addMembers,
+  exitMembers,
+  resetToInitialState,
 } from "../../store/drone";
 import { useSnapshot } from "valtio";
 
 export const useDrone = () => {
   const { room: currentRoom } = useSnapshot(droneStore);
-
   const [state, setState] = useState({
     drone: null,
   });
@@ -25,19 +26,14 @@ export const useDrone = () => {
     const drone = new window.Scaledrone(process.env.REACT_APP_CHANNEL1_KEY, {
       data: member,
     });
-
     setUser(member);
-
     const room = drone.subscribe(`observable-${chat}`);
-
     console.log("room instance", room);
-
     setRoom({
       instance: room,
       name: chat,
     });
     setUpRoomListeners(room);
-
     setState((prevState) => {
       return { ...prevState, drone };
     });
@@ -53,17 +49,34 @@ export const useDrone = () => {
       addMessage(message);
     });
     room?.on("members", (members) => {
-      addMembers(members);
-      console.log("list of memebers: ", members);
+      const newMembers = members.map((member) => member.clientData);
+      addMembers(newMembers);
+      console.log("list of memebers: ", newMembers);
     });
     room.on("member_join", (member) => {
-      addMembers([member]);
+      addMembers([member.clientData]);
       const notificationJoin = {
         member: { username: "Chatbot Pero" },
-        text: `${member.clientData.username} joined the chat`,
+        text: `${member.clientData.username} joined the chat. 😀`,
       };
       addMessage(notificationJoin);
     });
+    room.on("member_leave", function (member) {
+      console.log("ode ča:", member);
+      exitMembers(member.clientData);
+      const notificationLeave = {
+        member: { username: "Chatbot Pero" },
+        text: `${member.clientData.username} left the chat. 👋`,
+      };
+      addMessage(notificationLeave);
+    });
+  };
+
+  const onLogOut = (chat, room) => {
+    room.unsubscribe(`observable-${chat}`);
+    resetToInitialState();
+    state.drone.close(`observable-${chat}`);
+    setState({ drone: null });
   };
 
   const onSendMessage = (message) => {
@@ -78,5 +91,6 @@ export const useDrone = () => {
     state,
     onSendMessage,
     onLogIn,
+    onLogOut,
   };
 };

@@ -24,3 +24,17 @@ export const addMessage = (message) => {
 export const addMembers = (newMembers) => {
   droneStore.members = [...droneStore.members, ...newMembers];
 };
+
+export const exitMembers = (user) => {
+  console.log("ode ča:", user);
+  droneStore.members = droneStore.members.filter(
+    (exitMember) => exitMember.id !== user.id
+  );
+};
+
+export const resetToInitialState = () => {
+  droneStore.user = INITIAL_STATE.user;
+  droneStore.room = INITIAL_STATE.room;
+  droneStore.messages = INITIAL_STATE.members;
+  droneStore.members = INITIAL_STATE.members;
+};
