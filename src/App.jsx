@@ -29,12 +29,12 @@ function App() {
                     <p>List of active members:</p>
                     <ul>
                       {members.map((member) => (
-                        <li key={member.id}>{member.clientData.username}</li>
+                        <li key={member.id}>{member.username}</li>
                       ))}
                     </ul>
                   </div>
                 )}
-                <button onClick={onLogOut}><Link to="/" />Log Out</button>
+                <button onClick={() => {onLogOut(room.name, room.instance)}}>Log Out</button>
                 <Messages messages={messages} currentMember={user} />
                 <Input onSendMessage={onSendMessage} />
               </>

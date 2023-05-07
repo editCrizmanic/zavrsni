@@ -1,10 +1,8 @@
 import { proxy } from "valtio";
-import { id } from "../utils/UserInfo/avatar";
 
 export const INITIAL_STATE = {
   user: null,
   room: null,
-  id,
   messages: [],
   members: [],
 };
@@ -28,6 +26,15 @@ export const addMembers = (newMembers) => {
 };
 
 export const exitMembers = (user) => {
-  droneStore.members.filter((exitMember) => exitMember !== user);
+  console.log("ode ča:", user);
+  droneStore.members = droneStore.members.filter(
+    (exitMember) => exitMember.id !== user.id
+  );
 };
-// znam da treba id, ali user je iz zabave. štaćemi 2 s istim imenom
+
+export const resetToInitialState = () => {
+  droneStore.user = INITIAL_STATE.user;
+  droneStore.room = INITIAL_STATE.room;
+  droneStore.messages = INITIAL_STATE.members;
+  droneStore.members = INITIAL_STATE.members;
+};

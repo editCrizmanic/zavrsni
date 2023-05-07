@@ -7,6 +7,7 @@ import {
   droneStore,
   addMembers,
   exitMembers,
+  resetToInitialState,
 } from "../../store/drone";
 import { useSnapshot } from "valtio";
 
@@ -48,11 +49,12 @@ export const useDrone = () => {
       addMessage(message);
     });
     room?.on("members", (members) => {
-      addMembers(members);
-      console.log("list of memebers: ", members);
+      const newMembers = members.map((member) => member.clientData);
+      addMembers(newMembers);
+      console.log("list of memebers: ", newMembers);
     });
     room.on("member_join", (member) => {
-      addMembers([member]);
+      addMembers([member.clientData]);
       const notificationJoin = {
         member: { username: "Chatbot Pero" },
         text: `${member.clientData.username} joined the chat. 😀`,
@@ -60,7 +62,8 @@ export const useDrone = () => {
       addMessage(notificationJoin);
     });
     room.on("member_leave", function (member) {
-      exitMembers(id);
+      console.log("ode ča:", member);
+      exitMembers(member.clientData);
       const notificationLeave = {
         member: { username: "Chatbot Pero" },
         text: `${member.clientData.username} left the chat. 👋`,
@@ -69,12 +72,11 @@ export const useDrone = () => {
     });
   };
 
-  const onLogOut = (chat, room, drone) => {
-    drone?.on("close", (event) => {
-      room.unsubscribe(`observable-${chat}`);
-      drone.close(`observable-${chat}`);
-    });
-    // console.log();
+  const onLogOut = (chat, room) => {
+    room.unsubscribe(`observable-${chat}`);
+    resetToInitialState();
+    state.drone.close(`observable-${chat}`);
+    setState({ drone: null });
   };
 
   const onSendMessage = (message) => {
