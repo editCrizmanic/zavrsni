@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import { useState } from 'react';
 import { LogIn } from './components/LogInOut/LogIn';
 import { ButtonLogIn } from './components/LogInOut/ButtonLogInOut';
@@ -34,7 +34,7 @@ function App() {
                     </ul>
                   </div>
                 )}
-                <button onClick={() => {onLogOut(room.name, room.instance)}}>Log Out</button>
+                <button className="button" onClick={() => {onLogOut(room.name, room.instance)}}>Log Out</button>
                 <Messages messages={messages} currentMember={user} />
                 <Input onSendMessage={onSendMessage} />
               </>

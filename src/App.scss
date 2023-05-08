@@ -1,0 +1,183 @@
+// ------------------ COLORS ------------------ 
+$text-primary: #313442;
+$button-primary: #80AB6B;
+$button-secondary: #AFCCA1;
+$button-active: #85957d;
+
+// ------------------ FONTS ------------------ 
+$fontfam-primary: 'Trirong', serif;
+
+
+
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: $text-primary;
+  font-family: $fontfam-primary;
+  font-size: 16px;
+  font-weight: 500;
+  height: 100vh;
+  background: url(./assets/background-img.png) no-repeat right top/cover fixed;
+}
+
+
+h1 {
+  color: $text-primary;
+  font-family: 'Fondamento', cursive;
+  text-shadow: 4px 4px 4px #00000060;
+  // -webkit-text-stroke: 0.5px $text-primary;
+}
+
+.Messages-list {
+  padding: 20px 0;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  list-style: none;
+  padding-left: 0;
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.Messages-message {
+  display: flex;
+  margin-top: 10px;
+}
+
+.Messages-message.currentMember {
+  /* justify-content: flex-end; */
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.Message-content {
+  display: inline-block;
+}
+
+.currentMember > .Message-content {
+  align-items: flex-end;
+}
+
+.Messages-message > .avatar {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 10px -10px;
+}
+
+.Message-content > .username {
+  display: block;
+  color: gray;
+  font-size: 14px;
+  padding-bottom: 4px;
+}
+
+.Message-content > .text {
+  padding: 10px;
+  max-width: 400px;
+  margin: 0;
+  border-radius: 12px;
+  background-color: #8b9ec1;
+  color: white;
+  display: inline-block;
+}
+
+.currentMember > .Message-content .text {
+  background-color: orangered;
+}
+
+form {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  max-width: 900px;
+  margin: 0 auto 40px;
+}
+
+input {
+  padding: 5px;
+  font-family: $fontfam-primary;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  flex-grow: 1;
+}
+
+select {
+  padding: 5px;
+  font-family: 'Twemoji', $fontfam-primary;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+}
+
+option:hover{
+  background-color: $button-secondary;
+}
+
+button {
+  padding: 5px 10px;
+  font-family: $fontfam-primary;
+  font-size: 16px;
+  background-color: $button-primary;
+  box-shadow: 4px 4px 4px #00000060;
+  color: $text-primary;
+  border: none;
+  border-radius: 8px;
+  margin-left: 10px;
+}
+
+.button:hover {
+  background-color: $button-active;
+  color: white;
+  transition-duration: 0.5s;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
+.btn-secondary {
+  background-color: $button-secondary;
+}
+
+.button:focus {
+  background-color: $button-active;
+  transform: translate(3px, 3px);
+  color: white;
+  box-shadow: 1px #00000060;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: white;
+  transition-duration: 0.7s;
+}
