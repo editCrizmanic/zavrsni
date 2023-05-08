@@ -44,13 +44,13 @@ const Input = ({ onSendMessage }) => {
           placeholder="Type here and press ENTER"
           autoFocus={true}
         />
-        <button type="button" onClick={togglePicker}>😊</button>
+        <button className="button" type="button" onClick={togglePicker}>😊</button>
         {showEmojiPicker && (
           <EmojiPicker
             onEmojiClick={onSelectEmoji}
             />
         )}
-        <button disabled={!text.trim()}>Send</button>
+        <button className="button" disabled={!text.trim()}>Send</button>
       </form>
     </div>
   );

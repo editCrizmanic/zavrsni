@@ -29,7 +29,7 @@ export const LogIn = ({ onLogIn }) => {
   return (
     <div>
       <form onSubmit={onSubmit}>
-        <input
+        <input className="inputField"
           onChange={onChangeText}
           value={username}
           type="text"
@@ -40,15 +40,15 @@ export const LogIn = ({ onLogIn }) => {
           <option disabled selected value="">
             Select an option
           </option>
-          <option value="general">General</option>
-          <option value="fantasy">Fantasy</option>
-          <option value="poetry">Poetry</option>
-          <option value="sci-fi">Sci-Fi</option>
-          <option value="crime">Crime</option>
-          <option value="travel">Travel</option>
-          <option value="how-to">How-to</option>
+          <option value="&#x1F4D6; General">&#x1F4D6; General</option>
+          <option value="&#x1F9DA; Fantasy">&#x1F9DA; Fantasy</option>
+          <option value="&#x1F4D8; Poetry">&#x1F4D8; Poetry</option>
+          <option value="&#x1F6F8; Sci-Fi">&#x1F6F8; Sci-Fi</option>
+          <option value="&#x1F575; Crime">&#x1F575; Crime</option>
+          <option value="&#x1F30D; Travel">&#x1F30D; Travel</option>
+          <option value="&#x1F527; How-to">&#x1F527; How-to</option>
         </select>
-        <button disabled={isDisabled}>Log In</button>
+        <button className="button" disabled={isDisabled}>Log In</button>
       </form>
     </div>
   );
