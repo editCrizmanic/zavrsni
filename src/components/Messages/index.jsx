@@ -1,13 +1,9 @@
 import React from "react";
-// import { ButtonLogOut } from "../LogInOut/ButtonLogInOut";
 
 const renderMessage = (id, currentMember, message) => {
   const { member, text } = message;
-  console.log({member});
-  console.log({currentMember});
   const messageFromMe = member.id === currentMember.id;
   const className = messageFromMe ? "Messages-message currentUser" : "Messages-message";
-// CSS na liniji 8 za pozicioniranje
 
   return (
     <li key={id} className={className}>
@@ -24,7 +20,6 @@ const Messages = (props) => {
   const { messages, currentMember } = props;
   return (
     <>
-      {/* <ButtonLogOut/> */}
       <ul className="Messages-list">
         {messages.map((m, index) => renderMessage(index, currentMember, m))}
       </ul>

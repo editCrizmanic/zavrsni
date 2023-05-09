@@ -17,12 +17,10 @@ const Input = ({ onSendMessage }) => {
     e.preventDefault();
     onSendMessage(text);
     setText("");
-    console.log("Submitted text:", text);
   };
   
   const onSelectEmoji = (emojiData) => {
     setText((text) => text + emojiData.emoji);
-    console.log("Selected emoji:", emojiData);
   };
   
   return (

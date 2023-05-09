@@ -8,20 +8,17 @@ export const LogIn = ({ onLogIn }) => {
 
   const onChangeText = (event) => {
     setUserName(event.target.value);
-    console.log(event.target.value);
     setIsDisabled(!event.target.value || !chat);
   };
 
   const onChangeSelect = (event) => {
     setChat(event.target.value);
-    console.log(event.target.value);
     setIsDisabled(!event.target.value || !username);
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
     onLogIn(username, chat);
-    console.log(username, chat);
     setUserName('');
     setIsDisabled(true);
   };
