@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import EmojiPicker, {
-  EmojiStyle,
-  SkinTones,
-  Theme,
-  Categories,
-  EmojiClickData,
-  Emoji,
-  SuggestionMode,
-  SkinTonePickerLocation
-} from "emoji-picker-react";
+import EmojiPicker from "emoji-picker-react";
 
 const Input = ({ onSendMessage }) => {
   const [text, setText] = useState("");
@@ -35,22 +26,22 @@ const Input = ({ onSendMessage }) => {
   };
   
   return (
-    <div className="Input">
+    <div className="div-input-msg">
       <form onSubmit={onSubmit}>
-        <input
+        <input className="input-msg"
           onChange={onChange}
           value={text}
           type="text"
           placeholder="Type here and press ENTER"
           autoFocus={true}
         />
-        <button className="button" type="button" onClick={togglePicker}>😊</button>
+        <button className="button btn-msg btn-emoji" type="button" onClick={togglePicker}>😊</button>
         {showEmojiPicker && (
-          <EmojiPicker
+          <EmojiPicker className="emojipicker"
             onEmojiClick={onSelectEmoji}
             />
         )}
-        <button className="button" disabled={!text.trim()}>Send</button>
+        <button className="button btn-msg" disabled={!text.trim()}>Send</button>
       </form>
     </div>
   );
