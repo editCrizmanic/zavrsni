@@ -22,12 +22,12 @@ function App() {
           <Route path="/" element={<ButtonLogIn/>}/>
           <Route path="/login" element={(!user?.username && !room?.name)? <LogIn onLogIn={onLogIn} /> : <Navigate to="/chat" />} />
           <Route path="/chat" element={(user?.username && room?.name) ? (
-              <>
+              <div className='chat-div'>
               <h1>{room.name}</h1>
               {room?.name && (
                   <div>
-                    <p>List of active members:</p>
-                    <ul>
+                    <p className='list'>List of active members:</p>
+                    <ul className='list'>
                       {members.map((member) => (
                         <li key={member.id}>{member.username}</li>
                       ))}
@@ -37,7 +37,7 @@ function App() {
                 <button className="button" onClick={() => {onLogOut(room.name, room.instance)}}>Log Out</button>
                 <Messages messages={messages} currentMember={user} />
                 <Input onSendMessage={onSendMessage} />
-              </>
+              </div>
             ) : (
               <Navigate to="/" />)} />
         </Routes>
