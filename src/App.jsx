@@ -1,6 +1,6 @@
 import "./App.scss";
-import { LogIn } from "./components/LogInOut/LogIn";
-import { ButtonLogIn } from "./components/LogInOut/ButtonLogInOut";
+import { LogIn } from "./components/LogIn/LogIn";
+import { ButtonLogIn } from "./components/LogIn/Homepage";
 import Messages from "./components/Messages";
 import Input from "./components/Input";
 import { useDrone } from "./utils/DroneStuff/useDrone";
@@ -12,6 +12,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import OffCanvasList from "./components/ActiveMembers/ActiveMembers";
 
 function App() {
   const { onSendMessage, onLogIn, onLogOut } = useDrone();
@@ -42,16 +43,7 @@ function App() {
               user?.username && room?.name ? (
                 <div className="chat-div">
                   <h1>{room.name}</h1>
-                  {room?.name && (
-                    <div>
-                      <p className="list">List of active members:</p>
-                      <ul className="list">
-                        {members.map((member) => (
-                          <li key={member.id}>{member.username}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                  <OffCanvasList />
                   <button
                     className="button"
                     onClick={() => {
