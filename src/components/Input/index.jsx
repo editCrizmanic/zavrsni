@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 
+{
+  /* -------------------------------------- Message input -------------------------------------- */
+}
+
 const Input = ({ onSendMessage }) => {
   const [text, setText] = useState("");
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false)
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
+  {
+    /* ----------------------------- Actions ----------------------------- */
+  }
 
   const onChange = (e) => {
     setText(e.target.value);
@@ -18,28 +26,38 @@ const Input = ({ onSendMessage }) => {
     onSendMessage(text);
     setText("");
   };
-  
+
   const onSelectEmoji = (emojiData) => {
     setText((text) => text + emojiData.emoji);
   };
-  
+
   return (
     <div className="div-input-msg">
       <form onSubmit={onSubmit}>
-        <input className="input-msg"
+        {/* ----------------------------- Text input  ----------------------------- */}
+        <input
+          className="input-msg"
           onChange={onChange}
           value={text}
           type="text"
           placeholder="Type here and press ENTER"
           autoFocus={true}
         />
-        <button className="button btn-msg btn-emoji" type="button" onClick={togglePicker}>😊</button>
+        {/* ----------------------------- Emoji input  ----------------------------- */}
+        <button
+          className="button btn-msg btn-emoji"
+          type="button"
+          onClick={togglePicker}
+        >
+          😊
+        </button>
         {showEmojiPicker && (
-          <EmojiPicker className="emojipicker"
-            onEmojiClick={onSelectEmoji}
-            />
+          <EmojiPicker className="emojipicker" onEmojiClick={onSelectEmoji} />
         )}
-        <button className="button btn-msg" disabled={!text.trim()}>Send</button>
+        {/* ----------------------------- Send button  ----------------------------- */}
+        <button className="button btn-msg" disabled={!text.trim()}>
+          Send
+        </button>
       </form>
     </div>
   );

@@ -1,5 +1,13 @@
 import { proxy } from "valtio";
 
+{
+  /* ----------------------------- Valtio state management  ----------------------------- */
+}
+
+{
+  /* ----------------------------- Initial state  ----------------------------- */
+}
+
 export const INITIAL_STATE = {
   user: null,
   room: null,
@@ -8,6 +16,10 @@ export const INITIAL_STATE = {
 };
 
 export const droneStore = proxy(INITIAL_STATE);
+
+{
+  /* ----------------------------- Actions  ----------------------------- */
+}
 
 export const setUser = (user) => {
   droneStore.user = user;

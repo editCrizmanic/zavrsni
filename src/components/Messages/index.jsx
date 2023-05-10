@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+
+{
+  /* ----------------------------- Message component  ----------------------------- */
+}
+
+{
+  /* ----------------------------- Render message  ----------------------------- */
+}
 
 const renderMessage = (id, currentMember, message) => {
   const { member, text } = message;
   const messageFromMe = member.id === currentMember.id;
-  const className = messageFromMe ? "Messages-message currentUser" : "Messages-message";
+  const className = messageFromMe
+    ? "Messages-message currentUser"
+    : "Messages-message";
 
   return (
     <li key={id} className={className}>
@@ -16,14 +26,22 @@ const renderMessage = (id, currentMember, message) => {
   );
 };
 
+{
+  /* ----------------------------- Map messages  ----------------------------- */
+}
 const Messages = (props) => {
   const { messages, currentMember } = props;
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    container.scrollTop = container.scrollHeight;
+  }, [messages]);
+
   return (
-    <>
-      <ul className="Messages-list">
-        {messages.map((m, index) => renderMessage(index, currentMember, m))}
-      </ul>
-    </>
+    <ul className="Messages-list" ref={containerRef}>
+      {messages.map((m, index) => renderMessage(index, currentMember, m))}
+    </ul>
   );
 };
 

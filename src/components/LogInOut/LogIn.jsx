@@ -1,11 +1,17 @@
-import React from 'react';
-import { useState } from 'react';
+import React from "react";
+import { useState } from "react";
+
+{
+  /* ----------------------------- Login page  ----------------------------- */
+}
 
 export const LogIn = ({ onLogIn }) => {
-  const [username, setUserName] = useState('');
-  const [chat, setChat] = useState('');
+  const [username, setUserName] = useState("");
+  const [chat, setChat] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
-
+  {
+    /* ----------------------------- Actions  ----------------------------- */
+  }
   const onChangeText = (event) => {
     setUserName(event.target.value);
     setIsDisabled(!event.target.value || !chat);
@@ -19,16 +25,20 @@ export const LogIn = ({ onLogIn }) => {
   const onSubmit = (event) => {
     event.preventDefault();
     onLogIn(username, chat);
-    setUserName('');
+    setUserName("");
     setIsDisabled(true);
   };
 
   return (
-    <div className='div-login'>
+    <div className="div-login">
       <form className="form-login" onSubmit={onSubmit}>
         <div>
-          <label className="label-login" htmlFor="login-username">Username:</label>
-          <input id='login-username'
+          {/* ----------------------------- Username  ----------------------------- */}
+          <label className="label-login" htmlFor="login-username">
+            Username:
+          </label>
+          <input
+            id="login-username"
             onChange={onChangeText}
             value={username}
             type="text"
@@ -36,9 +46,17 @@ export const LogIn = ({ onLogIn }) => {
             autoFocus={true}
           />
         </div>
+        {/* ----------------------------- Room  ----------------------------- */}
         <div>
-          <label className="label-login" htmlFor="login-room">Room:</label>
-          <select id="login-room" onChange={onChangeSelect} value={chat} name="rooms">
+          <label className="label-login" htmlFor="login-room">
+            Room:
+          </label>
+          <select
+            id="login-room"
+            onChange={onChangeSelect}
+            value={chat}
+            name="rooms"
+          >
             <option disabled selected value="">
               Select an option
             </option>
@@ -51,7 +69,9 @@ export const LogIn = ({ onLogIn }) => {
             <option value="&#x1F527; How-to">&#x1F527; How-to</option>
           </select>
         </div>
-        <button className="button button-login" disabled={isDisabled}>Log In</button>
+        <button className="button button-login" disabled={isDisabled}>
+          Log In
+        </button>
       </form>
     </div>
   );
