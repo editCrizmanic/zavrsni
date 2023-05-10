@@ -1,13 +1,19 @@
-import React from "react";
-// import { ButtonLogOut } from "../LogInOut/ButtonLogInOut";
+import React, { useEffect, useRef } from "react";
+
+{
+  /* ----------------------------- Message component  ----------------------------- */
+}
+
+{
+  /* ----------------------------- Render message  ----------------------------- */
+}
 
 const renderMessage = (id, currentMember, message) => {
   const { member, text } = message;
-  console.log({member});
-  console.log({currentMember});
   const messageFromMe = member.id === currentMember.id;
-  const className = messageFromMe ? "Messages-message currentUser" : "Messages-message";
-// CSS na liniji 8 za pozicioniranje
+  const className = messageFromMe
+    ? "Messages-message currentUser"
+    : "Messages-message";
 
   return (
     <li key={id} className={className}>
@@ -20,15 +26,22 @@ const renderMessage = (id, currentMember, message) => {
   );
 };
 
+{
+  /* ----------------------------- Map messages  ----------------------------- */
+}
 const Messages = (props) => {
   const { messages, currentMember } = props;
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    container.scrollTop = container.scrollHeight;
+  }, [messages]);
+
   return (
-    <>
-      {/* <ButtonLogOut/> */}
-      <ul className="Messages-list">
-        {messages.map((m, index) => renderMessage(index, currentMember, m))}
-      </ul>
-    </>
+    <ul className="Messages-list" ref={containerRef}>
+      {messages.map((m, index) => renderMessage(index, currentMember, m))}
+    </ul>
   );
 };
 

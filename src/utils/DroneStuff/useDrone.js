@@ -11,18 +11,26 @@ import {
 } from "../../store/drone";
 import { useSnapshot } from "valtio";
 
+{
+  /* ----------------------------- The main thing  ----------------------------- */
+}
+
 export const useDrone = () => {
   const { room: currentRoom } = useSnapshot(droneStore);
   const [state, setState] = useState({
     drone: null,
   });
 
+  {
+    /* ----------------------------- Login function  ----------------------------- */
+  }
   const onLogIn = (user, chat) => {
     const member = {
       username: user,
       color: randomColor(),
       id,
     };
+    console.log("Channel ID:", process.env.REACT_APP_CHANNEL1_KEY);
     const drone = new window.Scaledrone(process.env.REACT_APP_CHANNEL1_KEY, {
       data: member,
     });
@@ -38,6 +46,10 @@ export const useDrone = () => {
       return { ...prevState, drone };
     });
   };
+
+  {
+    /* ----------------------------- Various room listeners  ----------------------------- */
+  }
 
   const setUpRoomListeners = (room) => {
     room?.on("message", (data) => {
@@ -72,12 +84,20 @@ export const useDrone = () => {
     });
   };
 
+  {
+    /* ----------------------------- Log out  ----------------------------- */
+  }
+
   const onLogOut = (chat, room) => {
     room.unsubscribe(`observable-${chat}`);
     resetToInitialState();
     state.drone.close(`observable-${chat}`);
     setState({ drone: null });
   };
+
+  {
+    /* ----------------------------- Send message  ----------------------------- */
+  }
 
   const onSendMessage = (message) => {
     console.log(message, currentRoom.name);
@@ -86,6 +106,10 @@ export const useDrone = () => {
       message,
     });
   };
+
+  {
+    /* ----------------------------- returns  ----------------------------- */
+  }
 
   return {
     state,
