@@ -16,8 +16,7 @@ import OffCanvasList from "./components/ActiveMembers/ActiveMembers";
 
 function App() {
   const { onSendMessage, onLogIn, onLogOut } = useDrone();
-  const { messages, user, room, members } = useSnapshot(droneStore);
-  console.log(room);
+  const { messages, user, room } = useSnapshot(droneStore);
 
   return (
     <Router>
@@ -41,18 +40,27 @@ function App() {
             path="/chat"
             element={
               user?.username && room?.name ? (
+                /* header with room name and logout button */
                 <div className="chat-div">
-                  <h1>{room.name}</h1>
+                  <div className="chat-header">
+                    <h1>{room.name}</h1>
+                    <button
+                      className="button btn-logout"
+                      onClick={() => {
+                        onLogOut(room.name, room.instance);
+                      }}
+                    >
+                      Log Out
+                    </button>
+                  </div>
+
+                  {/* react bootstrap component that lists all active members */}
                   <OffCanvasList />
-                  <button
-                    className="button"
-                    onClick={() => {
-                      onLogOut(room.name, room.instance);
-                    }}
-                  >
-                    Log Out
-                  </button>
+
+                  {/* messages component for display*/}
                   <Messages messages={messages} currentMember={user} />
+
+                  {/* input component for sending messages and emojis */}
                   <Input onSendMessage={onSendMessage} />
                 </div>
               ) : (

@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import EmojiPicker from "emoji-picker-react";
 
-{
-  /* -------------------------------------- Message input -------------------------------------- */
-}
+/* ----------------------------- Input component for sending messages  ----------------------------- */
 
 const Input = ({ onSendMessage }) => {
   const [text, setText] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const emojiPickerRef = useRef(null);
 
   {
-    /* ----------------------------- Actions ----------------------------- */
+    /* ----------------------------- functions that control the input  ----------------------------- */
   }
 
   const onChange = (e) => {
@@ -31,10 +30,28 @@ const Input = ({ onSendMessage }) => {
     setText((text) => text + emojiData.emoji);
   };
 
+  {
+    /* ----------------------------- closing emoji picker on outside click  ----------------------------- */
+  }
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (
+        emojiPickerRef.current &&
+        !emojiPickerRef.current.contains(e.target)
+      ) {
+        setShowEmojiPicker(false);
+      }
+    };
+    window.addEventListener("click", handleOutsideClick);
+    return () => {
+      window.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
+
   return (
     <div className="div-input-msg">
       <form onSubmit={onSubmit}>
-        {/* ----------------------------- Text input  ----------------------------- */}
+        {/* ----------------------------- Text input ----------------------------- */}
         <input
           className="input-msg"
           onChange={onChange}
@@ -43,7 +60,7 @@ const Input = ({ onSendMessage }) => {
           placeholder="Type here and press ENTER"
           autoFocus={true}
         />
-        {/* ----------------------------- Emoji input  ----------------------------- */}
+        {/* ----------------------------- Emoji picker ----------------------------- */}
         <button
           className="button btn-msg btn-emoji"
           type="button"
@@ -52,7 +69,9 @@ const Input = ({ onSendMessage }) => {
           😊
         </button>
         {showEmojiPicker && (
-          <EmojiPicker className="emojipicker" onEmojiClick={onSelectEmoji} />
+          <div ref={emojiPickerRef}>
+            <EmojiPicker onEmojiClick={onSelectEmoji} />
+          </div>
         )}
         {/* ----------------------------- Send button  ----------------------------- */}
         <button className="button btn-msg" disabled={!text.trim()}>

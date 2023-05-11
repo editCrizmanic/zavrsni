@@ -12,7 +12,8 @@ import {
 import { useSnapshot } from "valtio";
 
 {
-  /* ----------------------------- The main thing  ----------------------------- */
+  /* ----------------------------- THE MAIN THING  ----------------------------- */
+  /* ----------------- all drone related tgings are done here  ----------------- */
 }
 
 export const useDrone = () => {
@@ -23,6 +24,7 @@ export const useDrone = () => {
 
   {
     /* ----------------------------- Login function  ----------------------------- */
+    /* sets the username, avatar, drone connection, subscribes user to the selected room, and calls for all room activities */
   }
   const onLogIn = (user, chat) => {
     const member = {
@@ -30,13 +32,11 @@ export const useDrone = () => {
       color: randomColor(),
       id,
     };
-    console.log("Channel ID:", process.env.REACT_APP_CHANNEL1_KEY);
     const drone = new window.Scaledrone(process.env.REACT_APP_CHANNEL1_KEY, {
       data: member,
     });
     setUser(member);
     const room = drone.subscribe(`observable-${chat}`);
-    console.log("room instance", room);
     setRoom({
       instance: room,
       name: chat,
@@ -49,11 +49,11 @@ export const useDrone = () => {
 
   {
     /* ----------------------------- Various room listeners  ----------------------------- */
+    /* lists members in a given room, sends notification when someone joins or leaves the room */
   }
 
   const setUpRoomListeners = (room) => {
     room?.on("message", (data) => {
-      console.log(data);
       const message = {
         member: data.member.clientData,
         text: data.data,
@@ -63,7 +63,6 @@ export const useDrone = () => {
     room?.on("members", (members) => {
       const newMembers = members.map((member) => member.clientData);
       addMembers(newMembers);
-      console.log("list of memebers: ", newMembers);
     });
     room.on("member_join", (member) => {
       addMembers([member.clientData]);
@@ -74,7 +73,6 @@ export const useDrone = () => {
       addMessage(notificationJoin);
     });
     room.on("member_leave", function (member) {
-      console.log("ode ča:", member);
       exitMembers(member.clientData);
       const notificationLeave = {
         member: { username: "Chatbot Pero" },
@@ -86,6 +84,7 @@ export const useDrone = () => {
 
   {
     /* ----------------------------- Log out  ----------------------------- */
+    /* unsubscribes from the room, resets the state to initial value, closes the drone connection */
   }
 
   const onLogOut = (chat, room) => {
@@ -97,10 +96,10 @@ export const useDrone = () => {
 
   {
     /* ----------------------------- Send message  ----------------------------- */
+    /* publishes the message to the room */
   }
 
   const onSendMessage = (message) => {
-    console.log(message, currentRoom.name);
     state.drone?.publish({
       room: `observable-${currentRoom.name}`,
       message,
@@ -109,6 +108,7 @@ export const useDrone = () => {
 
   {
     /* ----------------------------- returns  ----------------------------- */
+    /* all things that will be used somewhere else */
   }
 
   return {
