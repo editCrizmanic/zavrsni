@@ -1,13 +1,27 @@
-This is a chat application created with React and Scaledrone. Along with React router and Valtio for state management.
-Plan for it is to be an app related to books and reading.
-Currently, it has some basic functionalities along with log-in. There is no design, so the whole thing, for now, is somewhat ugly 
+# Welcome to BookChat App!
+Join one of the rooms and chat away.
 
-Some of the functionalities to be implemented:
-- erasing messages
-- choosing avatars
-- choosing desired rooms on login
-- display of active members
-...
+This is a chat application created with React and Scaledrone. Along with React router, Valtio for state management, React Bootstrap and SCSS for styling.
+It was created as a place for book lovers to chat away anything related to books and reading.
+
+
+## Some of the functionalities:
+- **Homepage**
+  - with option to go to the login page or see the source code
+- **Login page**
+  - in which an user should input username and select a room in order to join the cat (multiple rooms are available)
+- **Chat page** (that's where a big part of the magic happens)
+  - room name is displayed in the header
+  - logout button is hidden and set aside, redirects user to homepage
+  - list of active users displays on off canvas
+  - input field with option to insert text and/or emojis
+  - message display, of course (containing username, avatar generated with random colors, and message text; messages are displayed right or left based on who sent it)
+
+
+This app can do some things, but there are a lot of ideas going on. So in due time, there will probably be some updates. :D
+
+
+
 
 
 
