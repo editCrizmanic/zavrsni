@@ -7,7 +7,6 @@ import React, { useEffect, useRef } from "react";
 {
   /* ----------------------------- Render message  ----------------------------- */
 }
-
 const renderMessage = (id, currentMember, message) => {
   const { member, text } = message;
   const messageFromMe = member.id === currentMember.id;

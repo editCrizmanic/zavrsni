@@ -7,7 +7,6 @@ import { proxy } from "valtio";
 {
   /* ----------------------------- Initial state  ----------------------------- */
 }
-
 export const INITIAL_STATE = {
   user: null,
   room: null,
@@ -20,7 +19,6 @@ export const droneStore = proxy(INITIAL_STATE);
 {
   /* ----------------------------- Actions  ----------------------------- */
 }
-
 export const setUser = (user) => {
   droneStore.user = user;
 };
@@ -38,7 +36,6 @@ export const addMembers = (newMembers) => {
 };
 
 export const exitMembers = (user) => {
-  console.log("ode ča:", user);
   droneStore.members = droneStore.members.filter(
     (exitMember) => exitMember.id !== user.id
   );

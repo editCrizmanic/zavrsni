@@ -10,7 +10,7 @@ export const LogIn = ({ onLogIn }) => {
   const [chat, setChat] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
   {
-    /* ----------------------------- Actions  ----------------------------- */
+    /* ----------------------------- functions that control the input  ----------------------------- */
   }
   const onChangeText = (event) => {
     setUserName(event.target.value);
@@ -56,6 +56,7 @@ export const LogIn = ({ onLogIn }) => {
             onChange={onChangeSelect}
             value={chat}
             name="rooms"
+            className="select-room"
           >
             <option disabled selected value="">
               Select an option
