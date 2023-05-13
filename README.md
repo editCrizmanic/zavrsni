@@ -1,5 +1,6 @@
 # Welcome to BookChat App!
 Join one of the rooms and chat away.
+Netlify: https://bookchatapp.netlify.app
 
 This is a chat application created with React and Scaledrone. Along with React router, Valtio for state management, React Bootstrap and SCSS for styling.
 It was created as a place for book lovers to chat away anything related to books and reading.
