@@ -1,17 +1,14 @@
 import React from "react";
 import { useState } from "react";
 
-{
-  /* ----------------------------- Login page  ----------------------------- */
-}
+/* ----------------------------- Login page  ----------------------------- */
 
 export const LogIn = ({ onLogIn }) => {
   const [username, setUserName] = useState("");
   const [chat, setChat] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
-  {
-    /* ----------------------------- functions that control the input  ----------------------------- */
-  }
+
+  /* ----------------------------- functions that control the input  ----------------------------- */
   const onChangeText = (event) => {
     setUserName(event.target.value);
     setIsDisabled(!event.target.value || !chat);

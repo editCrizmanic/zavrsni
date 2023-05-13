@@ -11,10 +11,8 @@ import {
 } from "../../store/drone";
 import { useSnapshot } from "valtio";
 
-{
-  /* ----------------------------- THE MAIN THING  ----------------------------- */
-  /* ----------------- all drone related tgings are done here  ----------------- */
-}
+/* ----------------------------- THE MAIN THING  ----------------------------- */
+/* ----------------- all drone related tgings are done here  ----------------- */
 
 export const useDrone = () => {
   const { room: currentRoom } = useSnapshot(droneStore);
@@ -22,10 +20,8 @@ export const useDrone = () => {
     drone: null,
   });
 
-  {
-    /* ----------------------------- Login function  ----------------------------- */
-    /* sets the username, avatar, drone connection, subscribes user to the selected room, and calls for all room activities */
-  }
+  /* ----------------------------- Login function  ----------------------------- */
+  /* sets the username, avatar, drone connection, subscribes user to the selected room, and calls for all room activities */
   const onLogIn = (user, chat) => {
     const member = {
       username: user,
@@ -47,10 +43,8 @@ export const useDrone = () => {
     });
   };
 
-  {
-    /* ----------------------------- Various room listeners  ----------------------------- */
-    /* lists members in a given room, sends notification when someone joins or leaves the room */
-  }
+  /* ----------------------------- Various room listeners  ----------------------------- */
+  /* lists members in a given room, sends notification when someone joins or leaves the room */
 
   const setUpRoomListeners = (room) => {
     room?.on("message", (data) => {
@@ -82,10 +76,8 @@ export const useDrone = () => {
     });
   };
 
-  {
-    /* ----------------------------- Log out  ----------------------------- */
-    /* unsubscribes from the room, resets the state to initial value, closes the drone connection */
-  }
+  /* ----------------------------- Log out  ----------------------------- */
+  /* unsubscribes from the room, resets the state to initial value, closes the drone connection */
 
   const onLogOut = (chat, room) => {
     room.unsubscribe(`observable-${chat}`);
@@ -94,10 +86,8 @@ export const useDrone = () => {
     setState({ drone: null });
   };
 
-  {
-    /* ----------------------------- Send message  ----------------------------- */
-    /* publishes the message to the room */
-  }
+  /* ----------------------------- Send message  ----------------------------- */
+  /* publishes the message to the room */
 
   const onSendMessage = (message) => {
     state.drone?.publish({
@@ -106,10 +96,8 @@ export const useDrone = () => {
     });
   };
 
-  {
-    /* ----------------------------- returns  ----------------------------- */
-    /* all things that will be used somewhere else */
-  }
+  /* ----------------------------- returns  ----------------------------- */
+  /* all things that will be used somewhere else */
 
   return {
     state,

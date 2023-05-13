@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 
 /* ----------------------------- Input component for sending messages  ----------------------------- */
@@ -7,9 +7,7 @@ const Input = ({ onSendMessage }) => {
   const [text, setText] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
-  {
-    /* ----------------------------- functions that control the input  ----------------------------- */
-  }
+  /* ----------------------------- functions that control the input  ----------------------------- */
 
   const onChange = (e) => {
     setText(e.target.value);

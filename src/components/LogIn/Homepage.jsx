@@ -1,9 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-{
-  /* ----------------------------- Homepage  ----------------------------- */
-}
+/* ----------------------------- Homepage  ----------------------------- */
 export const ButtonLogIn = () => {
   return (
     <div className="div-homepage">

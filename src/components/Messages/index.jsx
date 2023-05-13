@@ -1,12 +1,8 @@
 import React, { useEffect, useRef } from "react";
 
-{
-  /* ----------------------------- Message component  ----------------------------- */
-}
+/* ----------------------------- Message component  ----------------------------- */
 
-{
-  /* ----------------------------- Render message  ----------------------------- */
-}
+/* ----------------------------- Render message  ----------------------------- */
 const renderMessage = (id, currentMember, message) => {
   const { member, text } = message;
   const messageFromMe = member.id === currentMember.id;
@@ -25,9 +21,7 @@ const renderMessage = (id, currentMember, message) => {
   );
 };
 
-{
-  /* ----------------------------- Map messages  ----------------------------- */
-}
+/* ----------------------------- Map messages  ----------------------------- */
 const Messages = (props) => {
   const { messages, currentMember } = props;
   const containerRef = useRef(null);
