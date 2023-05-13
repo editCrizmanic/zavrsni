@@ -6,7 +6,6 @@ import EmojiPicker from "emoji-picker-react";
 const Input = ({ onSendMessage }) => {
   const [text, setText] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const emojiPickerRef = useRef(null);
 
   {
     /* ----------------------------- functions that control the input  ----------------------------- */
@@ -30,24 +29,6 @@ const Input = ({ onSendMessage }) => {
     setText((text) => text + emojiData.emoji);
   };
 
-  {
-    /* ----------------------------- closing emoji picker on outside click  ----------------------------- */
-  }
-  useEffect(() => {
-    const handleOutsideClick = (e) => {
-      if (
-        emojiPickerRef.current &&
-        !emojiPickerRef.current.contains(e.target)
-      ) {
-        setShowEmojiPicker(false);
-      }
-    };
-    window.addEventListener("click", handleOutsideClick);
-    return () => {
-      window.removeEventListener("click", handleOutsideClick);
-    };
-  }, []);
-
   return (
     <div className="div-input-msg">
       <form onSubmit={onSubmit}>
@@ -68,11 +49,7 @@ const Input = ({ onSendMessage }) => {
         >
           😊
         </button>
-        {showEmojiPicker && (
-          <div ref={emojiPickerRef}>
-            <EmojiPicker onEmojiClick={onSelectEmoji} />
-          </div>
-        )}
+        {showEmojiPicker && <EmojiPicker onEmojiClick={onSelectEmoji} />}
         {/* ----------------------------- Send button  ----------------------------- */}
         <button className="button btn-msg" disabled={!text.trim()}>
           Send
